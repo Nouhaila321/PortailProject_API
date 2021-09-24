@@ -41,16 +41,16 @@ namespace BackendAPP.Models
                 .HasKey(p => new { p.Id_Thematique, p.Id_Collaborateur });
 
             modelBuilder.Entity<Projet>()
-                .HasKey(p => new { p.Id_Projet, p.Id_Client });
+                .HasKey(p => new { p.Id_Projet , p.Id_Client});
 
             modelBuilder.Entity<ProjetTechnologie>()
                 .HasKey(p => new { p.id_projet, p.id_client, p.id_technologie });
 
             modelBuilder.Entity<ProjetThematique>()
-                .HasKey(p => new { p.id_client, p.id_projet, p.id_thematique });
+                .HasKey(p => new { p.id_projet, p.id_client, p.id_thematique });
 
             modelBuilder.Entity<ProjetGalerie>()
-                .HasKey(p => new { p.id_client, p.Id_Projet, p.Id_Image });
+                .HasKey(p => new {  p.Id_Projet ,p.id_client, p.Id_Image });
 
 
         }

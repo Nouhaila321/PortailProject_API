@@ -27,18 +27,17 @@ namespace BackendAPP.Controllers
             return await _context.ClientThematique.ToListAsync();
         }
 
-        // GET: api/ClientThematiques/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ClientThematique>> GetClientThematique(long id)
+        
+        // GET: api/ClientThematiques/1
+        [HttpGet("{idClient}")]
+        public async Task<IEnumerable<ClientThematique>> GetAllProjetThematique( long idClient)
         {
-            var clientThematique = await _context.ClientThematique.FindAsync(id);
 
-            if (clientThematique == null)
-            {
-                return NotFound();
-            }
+            var thematiques = await _context.ClientThematique
+                .Where(p => p.Id_Client == idClient)
+                .ToListAsync();
 
-            return clientThematique;
+            return thematiques;
         }
 
         // PUT: api/ClientThematiques/5

@@ -8,14 +8,12 @@ namespace BackendAPP.Models
     {
 
         
-        [ForeignKey("Id_Collaborateur")]
-        public string Id_Collaborateur { get; set; }
-
         
-        [ForeignKey("Id_Projet")]
+        public string Id_Collaborateur { get; set; }
+        
         public string Id_Projet { get; set; }
 
-        public DateTime Date { get; set; }
+        public double Days { get; set; }
        
     }
 }

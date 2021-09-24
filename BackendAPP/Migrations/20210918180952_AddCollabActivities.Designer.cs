@@ -2,14 +2,16 @@
 using BackendAPP.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackendAPP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class TechnologieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210918180952_AddCollabActivities")]
+    partial class AddCollabActivities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,9 +134,7 @@ namespace BackendAPP.Migrations
             modelBuilder.Entity("BackendAPP.Models.Projet", b =>
                 {
                     b.Property<long>("Id_Projet")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Id_Client")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
@@ -146,6 +146,9 @@ namespace BackendAPP.Migrations
                     b.Property<string>("EM")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Id_Client")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Id_Pole")
                         .HasColumnType("INTEGER");
 
@@ -155,7 +158,7 @@ namespace BackendAPP.Migrations
                     b.Property<string>("Statut")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id_Projet", "Id_Client");
+                    b.HasKey("Id_Projet");
 
                     b.ToTable("Projet");
                 });

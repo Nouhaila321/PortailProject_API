@@ -28,7 +28,8 @@ namespace BackendAPP.Controllers
         }
 
         // GET: api/Projets/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
+        
         public async Task<ActionResult<Projet>> GetProjet(long id)
         {
             var projet = await _context.Projet.FindAsync(id);
@@ -37,6 +38,58 @@ namespace BackendAPP.Controllers
             {
                 return NotFound();
             }
+
+            return projet;
+        }
+
+        // GET: api/Projets/5/1
+        [HttpGet("{idProjet:int}/{idClient:int}")]
+
+        public async Task<ActionResult<Projet>> GetInfoProjet(long idProjet, int idClient)
+        {
+            var projet = await _context.Projet.FindAsync(idProjet, idClient);
+             
+
+            if (projet == null)
+            {
+                return NotFound();
+            }
+            
+            return projet;
+
+        }
+
+        // GET: api/projets/Client-2
+        [HttpGet("Client_{idClient:int}")]
+        public async Task<IEnumerable<Projet>> GetProjetOfClient( int idClient)
+        {
+
+            var projet = await _context.Projet
+                .Where(p => p.Id_Client == idClient)
+                .ToListAsync();
+
+            return projet;
+        }
+
+        // GET: api/projets/maritime
+        [HttpGet("{domaine}")]
+        public async Task<IEnumerable<Projet>> GetProjetByDomaine(string domaine)
+        {
+            
+            var projet = await _context.Projet
+                .Where(p => p.Domaine == domaine)
+                .ToListAsync();
+
+            return projet;
+        }
+
+        // GET: api/projets/ETCS
+        [HttpGet("_{libelle}")]
+        public async Task<IEnumerable<Projet>> GetProjetByName(string libelle)
+        {
+            var projet = await _context.Projet
+                .Where(p => p.Libelle == libelle)
+                .ToListAsync();
 
             return projet;
         }

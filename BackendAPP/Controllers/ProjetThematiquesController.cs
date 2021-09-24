@@ -28,10 +28,10 @@ namespace BackendAPP.Controllers
         }
 
         // GET: api/ProjetThematiques/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProjetThematique>> GetProjetThematique(long id)
+        [HttpGet("{idProjet}/{idClient}/{idThematique}")]
+        public async Task<ActionResult<ProjetThematique>> GetProjetThematique(long idProjet, long idClient, long idThematique)
         {
-            var projetThematique = await _context.ProjetThematique.FindAsync(id);
+            var projetThematique = await _context.ProjetThematique.FindAsync(idProjet, idClient, idThematique);
 
             if (projetThematique == null)
             {
@@ -39,6 +39,18 @@ namespace BackendAPP.Controllers
             }
 
             return projetThematique;
+        }
+
+        // GET: api/ProjetThematique/1
+        [HttpGet("{idProjet}/{idClient}")]
+        public async Task<IEnumerable<ProjetThematique>> GetAllProjetThematique(long idProjet,  long idClient)
+        {
+
+            var projet = await _context.ProjetThematique
+                .Where(p => p.id_projet == idProjet && p.id_client == idClient)
+                .ToListAsync();
+
+            return projet;
         }
 
         // PUT: api/ProjetThematiques/5

@@ -31,7 +31,7 @@ namespace BackendAPP.Controllers
         }
 
         // GET: api/Clients/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<Client>> GetClient(long id)
         {
             var client = await _context.Client.FindAsync(id);
@@ -40,6 +40,17 @@ namespace BackendAPP.Controllers
             {
                 return NotFound();
             }
+
+            return client;
+        }
+
+        // GET: api/Clients/SNCF
+        [HttpGet("{Nom_Client}")]
+        public async Task<IEnumerable<Client>> GetClient(string Nom_Client)
+        {
+            var client = await _context.Client
+                .Where(c => c.Nom_Client == Nom_Client)
+                .ToListAsync();
 
             return client;
         }

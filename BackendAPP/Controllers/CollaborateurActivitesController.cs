@@ -41,6 +41,27 @@ namespace BackendAPP.Controllers
             return collaborateurActivite;
         }
 
+        //GET: api/CollaborateurActivites/projet/76
+        [HttpGet("projet/{idProjet}")]
+        public async Task<ActionResult<IEnumerable<Collaborateur>>> GetCollaborateurProjet(string idProjet)
+        {
+            var collaborateurActivite = await _context.CollaborateurActivite
+               .Where(p => p.Id_Projet == idProjet )
+               .ToListAsync();
+
+            List<Collaborateur> collaborateurs = new List<Collaborateur>();
+
+
+            foreach (CollaborateurActivite element in collaborateurActivite)
+            {
+
+                var collaborateur = await _context.Collaborateur.FindAsync(element.Id_Collaborateur);
+                collaborateurs.Add(collaborateur);
+            }
+
+            return collaborateurs;
+        }
+
         // PUT: api/CollaborateurActivites/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

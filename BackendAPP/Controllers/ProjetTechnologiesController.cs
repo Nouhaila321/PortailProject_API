@@ -28,10 +28,10 @@ namespace BackendAPP.Controllers
         }
 
         // GET: api/ProjetTechnologies/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProjetTechnologie>> GetProjetTechnologie(long id)
+        [HttpGet("{idProjet}/{idClient}/{idTechno}")]
+        public async Task<ActionResult<ProjetTechnologie>> GetProjetTechnologie(long idProjet, long idClient, long idTechno)
         {
-            var projetTechnologie = await _context.ProjetTechnologie.FindAsync(id);
+            var projetTechnologie = await _context.ProjetTechnologie.FindAsync(idProjet , idClient,  idTechno);
 
             if (projetTechnologie == null)
             {
@@ -39,6 +39,18 @@ namespace BackendAPP.Controllers
             }
 
             return projetTechnologie;
+        }
+
+        // GET: api/ProjetTechnologies/1
+        [HttpGet("{idProjet}/{idClient}")]
+        public async Task<IEnumerable<ProjetTechnologie>> GetAllProjetTechnologie(long idProjet, long idClient)
+        {
+
+            var projet = await _context.ProjetTechnologie
+                .Where(p => p.id_projet == idProjet && p.id_client == idClient )
+                .ToListAsync();
+
+            return projet;
         }
 
         // PUT: api/ProjetTechnologies/5

@@ -28,21 +28,32 @@ namespace BackendAPP.Controllers
         }
 
         // GET: api/ProjetGaleries/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProjetGalerie>> GetProjetGalerie(long id)
+        [HttpGet("{idProjet}/{idClient}/{Id_Image}")]
+        public async Task<ActionResult<ProjetGalerie>> GetProjetGalerie(long idProjet, long idClient, long Id_Image)
         {
-            var projetGalerie = await _context.ProjetGalerie.FindAsync(id);
+            var image = await _context.ProjetGalerie.FindAsync(idProjet, idClient, Id_Image);
 
-            if (projetGalerie == null)
+            if (image == null)
             {
                 return NotFound();
             }
 
-            return projetGalerie;
+            return image;
+        }
+
+        [HttpGet("{idProjet}/{idClient}")]
+        public async Task<IEnumerable<ProjetGalerie>> GetAllProjetTechnologie(long idProjet, long idClient)
+        {
+
+            var projet = await _context.ProjetGalerie
+                .Where(p => p.Id_Projet == idProjet && p.id_client == idClient)
+                .ToListAsync();
+
+            return projet;
         }
 
         // PUT: api/ProjetGaleries/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProjetGalerie(long id, ProjetGalerie projetGalerie)
         {
@@ -73,7 +84,7 @@ namespace BackendAPP.Controllers
         }
 
         // POST: api/ProjetGaleries
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPost]
         public async Task<ActionResult<ProjetGalerie>> PostProjetGalerie(ProjetGalerie projetGalerie)
         {

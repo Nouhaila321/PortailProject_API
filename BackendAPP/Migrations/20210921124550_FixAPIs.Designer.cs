@@ -2,14 +2,16 @@
 using BackendAPP.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackendAPP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class TechnologieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210921124550_FixAPIs")]
+    partial class FixAPIs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
